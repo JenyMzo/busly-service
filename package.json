@@ -1,0 +1,28 @@
+{
+  "name": "busly-service",
+  "version": "1.0.0",
+  "description": "A REST API built in Node.js to access and use data for Busly app  ",
+  "main": "index.js",
+  "scripts": {
+    "test": "lab tests/repositoriesController.test.js -m 5000 -t 95 -L -I 'core,__core-js_shared__'",
+    "start": "node server"
+  },
+  "repository": "git@github.com:JenyMzo/busly-service.git",
+  "author": "Jeny Mazo <yenymzo@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.1",
+    "@hapi/inert": "^6.0.5",
+    "@hapi/joi": "^17.1.1",
+    "@hapi/joi-date": "^2.0.1",
+    "@hapi/vision": "^6.0.0",
+    "got": "^11.1.4",
+    "hapi-plugin-mysql": "^7.2.6",
+    "hapi-swagger": "^13.0.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@hapi/code": "^8.0.1",
+    "@hapi/lab": "^22.0.4"
+  }
+}
