@@ -19,7 +19,7 @@ exports.init = async () => {
         port
     });
 
-    // Routes(server);
+    Routes(server);
 
     await server.register([
         Inert,
