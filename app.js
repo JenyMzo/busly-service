@@ -15,9 +15,14 @@ const swaggerOptions = {
 
 exports.init = async () => {
     const server = Hapi.server({
-        host: 'localhost',
+        host: process.env.MYSQL_DB_HOST,
         port
     });
+
+    console.log("db", process.env.MYSQL_DATABASE),
+    console.log("USER", process.env.MYSQL_USER),
+    console.log("PASS", process.env.MYSQL_PASSWORD),
+    console.log("HOST", process.env.MYSQL_DB_HOST),
 
     Routes(server);
 

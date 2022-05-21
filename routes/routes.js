@@ -1,6 +1,6 @@
 module.exports = function (server) {
 
-    // const  = require('../controllers/repositoriesController');
+    // const repos = require('../controllers/repositoriesController');
     const JoiBase = require('@hapi/joi');
     const JoiDate = require('@hapi/joi-date');
 
