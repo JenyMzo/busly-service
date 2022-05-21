@@ -38,5 +38,3 @@ module.exports = (sequelize, DataTypes) => {
     return Business;
 };
 
-await Bus.sync({ force: true });
-console.log("The table for the Bus model was just (re)created!");

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "lab tests/repositoriesController.test.js -m 5000 -t 95 -L -I 'core,__core-js_shared__'",
-    "start": "node server"
+    "start": "node server",
+    "db:makemigrations": "./node_modules/sequelize-auto-migrations/bin/makemigration.js"
   },
   "repository": "git@github.com:JenyMzo/busly-service.git",
   "author": "Jeny Mazo <yenymzo@gmail.com>",
@@ -18,11 +19,13 @@
     "@hapi/vision": "^6.0.0",
     "got": "^11.1.4",
     "hapi-plugin-mysql": "^7.2.6",
-    "hapi-swagger": "^13.0.1",
+    "hapi-swagger": "^14.5.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.19.0",
-    "sequelize-cli": "^6.4.1"
+    "sequelize-auto-migrations": "^1.0.3",
+    "sequelize-cli": "^6.4.1",
+    "sqlite3": "^5.0.8"
   },
   "devDependencies": {
     "@hapi/code": "^8.0.1",

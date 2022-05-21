@@ -2,11 +2,7 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
 module.exports = (sequelize, DataTypes) => {
-    class Customer extends Model {
-        static associate(models) {
-            // define association here
-        }
-    }
+    class Customer extends Model {}
 
     Customer.init({
         id: {
@@ -34,8 +30,6 @@ module.exports = (sequelize, DataTypes) => {
         sequelize,
         modelName: 'Customer'
     });
-    return Reservation;
+    return Customer;
 };
 
-await Customer.sync({ force: true });
-console.log("The table for the Customer model was just (re)created!");

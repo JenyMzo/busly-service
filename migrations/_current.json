@@ -1,0 +1,33 @@
+{
+    "tables": {
+        "Ammenities": {
+            "tableName": "Ammenities",
+            "indexes": []
+        },
+        "Buses": {
+            "tableName": "Buses",
+            "indexes": []
+        },
+        "BusAmmenities": {
+            "tableName": "BusAmmenities",
+            "indexes": []
+        },
+        "Businesses": {
+            "tableName": "Businesses",
+            "indexes": []
+        },
+        "Customers": {
+            "tableName": "Customers",
+            "indexes": []
+        },
+        "Reservations": {
+            "tableName": "Reservations",
+            "indexes": []
+        },
+        "Reviews": {
+            "tableName": "Reviews",
+            "indexes": []
+        }
+    },
+    "revision": 1
+}

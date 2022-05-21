@@ -3,20 +3,20 @@ const sequelize = new Sequelize('sqlite::memory:');
 const Business = require('./Business');
 
 module.exports = (sequelize, DataTypes) => {
-    class Bus extends Model {
-        static associate() {
-            Business.hasMany(Bus, {
-                foreignKey: 'business_id',
-            });
-            Bus.belongsTo(Business);
-        }
-    }
+    class Bus extends Model {}
 
     Bus.init({
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
+        },
+        business_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: Business,
+                key: 'id'
+            }
         },
         registration_plate: {
             type: DataTypes.STRING,
@@ -59,6 +59,3 @@ module.exports = (sequelize, DataTypes) => {
 
     return Bus;
 };
-
-await Bus.sync({ force: true });
-console.log("The table for the Bus model was just (re)created!");

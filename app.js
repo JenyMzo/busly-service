@@ -1,6 +1,6 @@
 const Hapi = require('@hapi/hapi');
 const port = process.env.PORT || 3000;
-const Routes = require('./src/routes/routes.js');
+const Routes = require('./routes/routes.js');
 const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');

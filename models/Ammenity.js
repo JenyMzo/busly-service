@@ -4,11 +4,7 @@ const Bus = require('./Bus');
 const BusAmmenity = require('./BusAmmenity');
 
 module.exports = (sequelize, DataTypes) => {
-    class Ammenity extends Model {
-        // static associate() {
-        //     Ammenity.belongsToMany(Bus, { through: BusAmmenity });
-        // }
-    }
+    class Ammenity extends Model {}
 
     Ammenity.init({
         id: {
@@ -31,6 +27,3 @@ module.exports = (sequelize, DataTypes) => {
 
     return Ammenity;
 };
-
-await Ammenity.sync({ force: true });
-console.log("The table for the Ammenity model was just (re)created!");

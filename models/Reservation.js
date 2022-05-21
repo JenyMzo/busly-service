@@ -5,19 +5,7 @@ const Customer = require('./Customer');
 
 module.exports = (sequelize, DataTypes) => {
 
-    class Reservation extends Model {
-        static associate() {
-            Bus.hasMany(Reservation, {
-                foreignKey: 'bus_id',
-            });
-            Reservation.belongsTo(Bus);
-
-            Customer.hasMany(Reservation, {
-                foreignKey: 'customer_id',
-            });
-            Reservation.belongsTo(Customer);
-        }
-    }
+    class Reservation extends Model {}
 
     Reservation.init({
         id: {
@@ -64,5 +52,3 @@ module.exports = (sequelize, DataTypes) => {
     return Reservation;
 };
 
-await Reservation.sync({ force: true });
-console.log("The table for the Reservation model was just (re)created!");
