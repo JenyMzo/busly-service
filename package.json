@@ -7,7 +7,11 @@
     "test": "lab tests/repositoriesController.test.js -m 5000 -t 95 -L -I 'core,__core-js_shared__'",
     "start": "node server",
     "db:migrate": "sequelize db:migrate",
-    "db:migrate:undo": "sequelize db:migrate:undo:all"
+    "db:create": "sequelize db:create",
+    "db:drop": "sequelize db:drop",
+    "db:seed": "sequelize db:seed:all",
+    "db:seed:undo": "sequelize db:seed:undo:all",
+    "db:reset": "yarn db:drop && yarn db:create && yarn db:migrate && yarn db:seed"
   },
   "repository": "git@github.com:JenyMzo/busly-service.git",
   "author": "Jeny Mazo <yenymzo@gmail.com>",
