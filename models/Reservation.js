@@ -1,168 +1,61 @@
-'use strict';
+const { Sequelize, DataTypes, Model } = require('sequelize');
+const sequelize = new Sequelize('sqlite::memory:');
+const Bus = require('./Bus');
+const Customer = require('./Customer');
 
-module.exports = {
-  async up (queryInterface, Sequelize) {
-    return Promise.all([
-      queryInterface.addColumn(
-        'ammenities',
-        'createdAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'ammenities',
-        'updatedAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'buses',
-        'createdAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'buses',
-        'updatedAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'busAmmenities',
-        'createdAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'busAmmenities',
-        'updatedAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'businesses',
-        'createdAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'businesses',
-        'updatedAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'customers',
-        'createdAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'customers',
-        'updatedAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'reservations',
-        'createdAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'reservations',
-        'updatedAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'reviews',
-        'createdAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-      queryInterface.addColumn(
-        'reviews',
-        'updatedAt',
-        {
-          type: Sequelize.DATE,
-        }
-      ),
-    ]);
-  },
+module.exports = (sequelize, DataTypes) => {
 
-  async down (queryInterface, Sequelize) {
-    return Promise.all([
-      queryInterface.removeColumn(
-        'ammenities',
-        'createdAt',
-      ),
-      queryInterface.removeColumn(
-        'ammenities',
-        'updatedAt',
-      ),
-      queryInterface.removeColumn(
-        'buses',
-        'createdAt',
-      ),
-      queryInterface.removeColumn(
-        'buses',
-        'updatedAt',
-      ),
-      queryInterface.removeColumn(
-        'busAmmenities',
-        'createdAt',
-      ),
-      queryInterface.removeColumn(
-        'busAmmenities',
-        'updatedAt',
-      ),
-      queryInterface.removeColumn(
-        'businesses',
-        'createdAt',
-      ),
-      queryInterface.removeColumn(
-        'businesses',
-        'updatedAt',
-      ),
-      queryInterface.removeColumn(
-        'customers',
-        'createdAt',
-      ),
-      queryInterface.removeColumn(
-        'customers',
-        'updatedAt',
-      ),
-      queryInterface.removeColumn(
-        'reservations',
-        'createdAt',
-      ),
-      queryInterface.removeColumn(
-        'reservations',
-        'updatedAt',
-      ),
-      queryInterface.removeColumn(
-        'reviews',
-        'createdAt',
-      ),
-      queryInterface.removeColumn(
-        'reviews',
-        'updatedAt',
-      ),
-    ]);
-  }
+    class Reservation extends Model {}
+
+    Reservation.init({
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        bus_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: Bus,
+                key: 'id'
+            }
+        },
+        customer_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: Customer,
+                key: 'id'
+            }
+        },
+        reservation_date: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        travel_date_start: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        travel_date_end: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        status: {
+            type: DataTypes.ENUM,
+            values: ['pending', 'approved', 'canceled'],
+            allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            allowNull: true
+        }
+    }, {
+        sequelize,
+        modelName: 'Reservation'
+    });
+
+    return Reservation;
 };
-
