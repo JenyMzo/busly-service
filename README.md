@@ -7,7 +7,7 @@ back end api with endpoints for busly app
 
 ## Run migrations
 
-    $ yarn sequelize db:migrate
+    $ yarn sequelize db:reset
 
 ### Troubleshooting DB connecton issues
 
