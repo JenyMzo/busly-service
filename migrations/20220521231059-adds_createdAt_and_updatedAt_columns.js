@@ -18,14 +18,14 @@ module.exports = {
         }
       ),
       queryInterface.addColumn(
-        'busses',
+        'buses',
         'createdAt',
         {
           type: Sequelize.DATE,
         }
       ),
       queryInterface.addColumn(
-        'busses',
+        'buses',
         'updatedAt',
         {
           type: Sequelize.DATE,
@@ -115,11 +115,11 @@ module.exports = {
         'updatedAt',
       ),
       queryInterface.removeColumn(
-        'busses',
+        'buses',
         'createdAt',
       ),
       queryInterface.removeColumn(
-        'busses',
+        'buses',
         'updatedAt',
       ),
       queryInterface.removeColumn(
