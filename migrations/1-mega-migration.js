@@ -123,18 +123,6 @@ var migrationCommands = [{
                     type: DataTypes.STRING,
                     allowNull: false
                 },
-                address: {
-                    type: DataTypes.STRING,
-                    allowNull: false
-                },
-                city: {
-                    type: DataTypes.STRING,
-                    allowNull: false
-                },
-                is_verified: {
-                    type: DataTypes.TINYINT,
-                    allowNull: false
-                },
                 has_tecnico_mecanica: {
                     type: DataTypes.STRING,
                     allowNull: false,

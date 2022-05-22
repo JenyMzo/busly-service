@@ -18,8 +18,27 @@ module.exports.getBuses = async (request, h) => {
 
     return h.response({bus}).code(200);
   } catch (error) {
-    console.log("🚀 ~ file: busesController.js ~ line 27 ~ module.exports.getBuses= ~ error", error)
-    console.log("🚀 ~ file: busesController.js ~ line 28 ~ module.exports.getBuses= ~ error.message", error.message)
+    return h.response({
+      error: err.message || "Some error occurred while retrieving buses."
+    }).code(500);
+  }
+};
+
+// consultar los buses que no tengan reserva aprobada o pendiente dentro del rango de fechas
+module.exports.getAvailableBuses = async (request, h) => {
+  try {
+    console.log('request.query.start', request.query.start);
+    console.log('request.query.end', request.query.end);
+    const busModel = Bus(sequelize, DataTypes);
+    const bus = await busModel.findByPk(request.params.id,{
+      attributes: ['id', 'brand']
+    });
+
+    return h.response({bus}).code(200);
+  } catch (error) {
+    return h.response({
+      error: err.message || "Some error occurred while retrieving buses."
+    }).code(500);
   }
 };
 
