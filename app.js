@@ -35,7 +35,7 @@ exports.init = async () => {
             options: {
                 host: config.development.host,
                 port: 3306,
-                user: config.development.user,
+                user: config.development.username,
                 password: config.development.password,
                 database: config.development.database,
                 multipleStatements: true,

@@ -1,8 +1,7 @@
 module.exports = function (server) {
-  const buses = require("../controllers/busesController");
+  const Bus = require("../controllers/busesController");
   const JoiBase = require("@hapi/joi");
   const JoiDate = require("@hapi/joi-date");
-
   const Joi = JoiBase.extend(JoiDate);
 
   server.route({
@@ -14,39 +13,29 @@ module.exports = function (server) {
     },
   });
 
-  server.route({
-    method: "GET",
-    path: "/buses/{id}",
-    handler: buses.getBuses,
-    options: {
-      validate: {
-        params: Joi.object({ id: Joi.number().integer().required() }),
-      },
-    },
-  });
+    server.route({
+        method: "GET",
+        path: "/buses/{id}",
+        handler: Bus.getBuses,
+        options: {
+            validate: {
+            params: Joi.object({ id: Joi.number().integer().required() }),
+            },
+        },
+    });
 
-  // server.route({
-  //     method: 'GET',
-  //     path: '/',
-  //     // handler: repos.list_repositories,
-  //     // options: {
-  //     //     tags: ['api'],
-  //     //     description: 'repositories',
-  //     //     notes: 'Get list of trending Github repositories based on parameters passed by query string',
-  //     //     validate: {
-  //     //         query: Joi.object({
-  //     //             limit: Joi.number()
-  //     //                 .description('Limit the amount of returned repositories.')
-  //     //                 .equal(10, 50, 100)
-  //     //                 .default(10),
-  //     //             creation_date: Joi.date()
-  //     //                 .description('Date of creation of a repository. Format allowed: (YYYY-MM-DD).')
-  //     //                 .format('YYYY-MM-DD')
-  //     //                 .raw(),
-  //     //             language: Joi.string()
-  //     //                 .description('Programming language.')
-  //     //         })
-  //     //     }
-  //     // }
-  // });
+    server.route({
+        method: 'GET',
+        path: '/business/{businessId}/buses',
+        handler: Bus.getMyBuses,
+        options: {
+            validate: {
+                params: Joi.object({
+                    businessId: Joi.number().integer().required()
+                })
+            },
+            tags: ['api'],
+            description: 'Get all buses of a business',
+        }
+    });
 };

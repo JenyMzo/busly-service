@@ -23,6 +23,14 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'id'
             }
         },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            allowNull: true
+        }
     }, {
         sequelize,
         modelName: 'BusAmmenity'

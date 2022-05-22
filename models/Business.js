@@ -29,6 +29,14 @@ module.exports = (sequelize, DataTypes) => {
         isVerified: {
             type: DataTypes.TINYINT,
             allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            allowNull: true
         }
     }, {
         sequelize,
