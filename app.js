@@ -6,6 +6,8 @@ const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');
 const HapiMysql = require('hapi-plugin-mysql');
 const Pack = require('./package');
+const config = require('./config/config');
+
 const swaggerOptions = {
     info: {
         title: 'Busly service',
@@ -19,11 +21,6 @@ exports.init = async () => {
         port
     });
 
-    console.log("db", process.env.MYSQL_DATABASE),
-    console.log("USER", process.env.MYSQL_USER),
-    console.log("PASS", process.env.MYSQL_PASSWORD),
-    console.log("HOST", process.env.MYSQL_DB_HOST),
-
     Routes(server);
 
     await server.register([
@@ -36,11 +33,11 @@ exports.init = async () => {
         {
             plugin: HapiMysql,
             options: {
-                host: process.env.MYSQL_DB_HOST,
+                host: config.development.host,
                 port: 3306,
-                user: process.env.MYSQL_USER,
-                password: process.env.MYSQL_PASSWORD,
-                database: process.env.MYSQL_DATABASE,
+                user: config.development.user,
+                password: config.development.password,
+                database: config.development.database,
                 multipleStatements: true,
             }
         },
