@@ -1,8 +1,14 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Business extends Model {}
+    class Business extends Model {
+        static associate(models) {
+            Business.hasMany(models.Bus, {
+                as: 'buses',
+                foreignKey: 'business_id'
+            });
+        }
+    }
 
     Business.init({
         id: {

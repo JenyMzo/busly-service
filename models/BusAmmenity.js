@@ -1,13 +1,23 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+const { Model } = require('sequelize');
 const Bus = require('./Bus');
 const Ammenity = require('./Ammenity');
 
 module.exports = (sequelize, DataTypes) => {
-    class BusAmmenity extends Model {}
+    class BusAmmenity extends Model {
+        static associate(models) {
+            BusAmmenity.belongsTo(models.Bus, {
+                as: 'buses',
+                foreignKey: 'bus_id'
+            });
+            BusAmmenity.belongsTo(models.Ammenity, {
+                as: 'ammenity',
+                foreignKey: 'ammenity_id'
+            });
+        }
+    }
 
     BusAmmenity.init({
-        busId: {
+        bus_id: {
             type: DataTypes.STRING,
             allowNull: false,
             references: {
@@ -15,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'id'
             }
         },
-        ammenityId: {
+        ammenity_id: {
             type: DataTypes.STRING,
             allowNull: false,
             references: {

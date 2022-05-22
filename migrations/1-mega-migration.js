@@ -40,6 +40,14 @@ var migrationCommands = [{
                     type: DataTypes.STRING,
                     allowNull: true
                 },
+                createdAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                },
+                updatedAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                }
             },
             {}
         ]
@@ -73,6 +81,14 @@ var migrationCommands = [{
                 isVerified: {
                     type: DataTypes.TINYINT,
                     allowNull: false
+                },
+                createdAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                },
+                updatedAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
                 }
             },
             {}
@@ -128,6 +144,14 @@ var migrationCommands = [{
                     type: DataTypes.TINYINT,
                     allowNull: false,
                     default: false,
+                },
+                createdAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                },
+                updatedAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
                 }
             },
             {}
@@ -138,7 +162,7 @@ var migrationCommands = [{
         params: [
             "BusAmmenities",
             {
-                busId: {
+                bus_id: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     references: {
@@ -146,7 +170,7 @@ var migrationCommands = [{
                         key: 'id'
                     }
                 },
-                ammenityId: {
+                ammenity_id: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     references: {
@@ -154,6 +178,14 @@ var migrationCommands = [{
                         key: 'id'
                     }
                 },
+                createdAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                },
+                updatedAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                }
             },
             {}
         ]
@@ -184,6 +216,14 @@ var migrationCommands = [{
                     type: DataTypes.STRING,
                     allowNull: false
                 },
+                createdAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                },
+                updatedAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                }
             },
             {}
         ]
@@ -228,6 +268,14 @@ var migrationCommands = [{
                     type: DataTypes.ENUM,
                     values: ['pending', 'approved', 'canceled'],
                     allowNull: false
+                },
+                createdAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                },
+                updatedAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
                 }
             },
             {}
@@ -269,6 +317,14 @@ var migrationCommands = [{
                 description: {
                     type: DataTypes.STRING,
                     allowNull: false
+                },
+                createdAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                },
+                updatedAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
                 }
             },
             {}

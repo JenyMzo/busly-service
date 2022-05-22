@@ -1,5 +1,8 @@
+const Reservation = require("../models/Reservation");
+
 module.exports = function (server) {
   const Bus = require("../controllers/busesController");
+  const Reservation = require("../controllers/reservationsController");
   const JoiBase = require("@hapi/joi");
   const JoiDate = require("@hapi/joi-date");
   const Joi = JoiBase.extend(JoiDate);
@@ -36,6 +39,36 @@ module.exports = function (server) {
             },
             tags: ['api'],
             description: 'Get all buses of a business',
+        }
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/business/{businessId}/reservations',
+        handler: Reservation.getMyReservations,
+        options: {
+            validate: {
+                params: Joi.object({
+                    businessId: Joi.number().integer().required()
+                })
+            },
+            tags: ['api'],
+            description: 'Get all reservations of a business',
+        }
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/bus/{busId}/reservations',
+        handler: Reservation.getMyReservationsByBus,
+        options: {
+            validate: {
+                params: Joi.object({
+                    busId: Joi.number().integer().required()
+                })
+            },
+            tags: ['api'],
+            description: 'Get all reservations of a bus',
         }
     });
 };

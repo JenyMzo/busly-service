@@ -2,7 +2,26 @@ const { Model } = require('sequelize');
 const Business = require('./Business');
 
 module.exports = (sequelize, DataTypes) => {
-    class Bus extends Model {}
+    class Bus extends Model {
+        static associate(models) {
+            Bus.belongsTo(models.Business, {
+                foreignKey: 'business_id',
+                as: 'businesses'
+            });
+            Bus.hasMany(models.Reservation, {
+                as: 'reservations',
+                foreignKey: 'bus_id'
+            });
+            Bus.hasMany(models.BusAmmenity, {
+                as: 'busAmmenities',
+                foreignKey: 'bus_id'
+            });
+            Bus.hasMany(models.Review, {
+                as: 'reviews',
+                foreignKey: 'bus_id'
+            });
+        }
+    }
 
     Bus.init({
         id: {
