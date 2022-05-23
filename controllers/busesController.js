@@ -12,9 +12,7 @@ const sequelize = new Sequelize(
 module.exports.getBuses = async (request, h) => {
   try {
     const busModel = Bus(sequelize, DataTypes);
-    const bus = await busModel.findByPk(request.params.id,{
-      attributes: ['id', 'brand']
-    });
+    const bus = await busModel.findByPk(request.params.id);
 
     return h.response({bus}).code(200);
   } catch (error) {
