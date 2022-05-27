@@ -7,32 +7,38 @@ module.exports = {
      */
     await queryInterface.bulkInsert('Ammenities', [
       {
-        name: 'Ammenity One',
-        description: 'Description Ammenity One',
+        name: 'Aire acondicionado',
+        description: 'Aire acondicionado',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: 'Ammenity Two',
-        description: 'Description Ammenity Two',
+        name: 'Baño',
+        description: 'Baño',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: 'Ammenity Three',
-        description: 'Description Ammenity Three',
+        name: 'Ventanillas panorámicas',
+        description: 'Ventanillas panorámicas',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: 'Ammenity Four',
-        description: 'Description Ammenity Four',
+        name: 'Sillas reclinables',
+        description: 'Sillas reclinables',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: 'Ammenity Five',
-        description: 'Description Ammenity Five',
+        name: 'Luz de lectura',
+        description: 'Luz de lectura',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: 'TV',
+        description: '6 pantallas de 20 pulgadas',
         createdAt: new Date(),
         updatedAt: new Date(),
       }

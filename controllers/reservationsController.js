@@ -12,20 +12,24 @@ const sequelize = new Sequelize(
 
 module.exports.getMyReservations = async(request, h) => {
     try {
+        // SELECT * FROM busly.reservations r
+        // JOIN busly.buses b
+        // ON b.id = r.bus_id
+        // WHERE b.business_id = 1;
         const reservationModel = Reservation(sequelize, DataTypes);
+        const busModel = Bus(sequelize, DataTypes);
         const businessId = request.params.businessId;
         console.log('businessId', businessId);
-        console.log('col', Sequelize.col('reservationModel.bus_id'));
+        console.log('col', Sequelize.col('reservations.bus_id'));
         const reservations = await reservationModel.findAll({
-            include: ['buses'],
-            // include: [{
-            //     model: Bus,
-            //     attributes: ['id', 'business_id', 'brand', 'license_plate'],
-            //     on: { id:  Sequelize.col('reservationModel.bus_id') },
-            //     where: {
-            //         business_id: businessId
-            //     }
-            // }],
+            include: [{
+                model: busModel,
+                attributes: ['id', 'business_id', 'brand', 'license_plate'],
+                on: { id:  reservationModel.bus_id },
+                where: {
+                    business_id: businessId
+                }
+            }],
         });
         console.log('looog', reservations);
         return h.response(reservations).code(200);
@@ -45,14 +49,6 @@ module.exports.getMyReservationsByBus = async(request, h) => {
             where: {
                     bus_id: busId
              }
-            // include: [{
-            //     model: Bus,
-            //     attributes: ['id', 'business_id', 'brand', 'license_plate'],
-            //     on: { id:  Sequelize.col('reservationModel.bus_id') },
-            //     where: {
-            //         business_id: businessId
-            //     }
-            // }],
         });
         console.log('looog', reservations);
         return h.response(reservations).code(200);

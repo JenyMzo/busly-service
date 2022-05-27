@@ -2,32 +2,32 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('Customers', [
       {
-        name: 'Customer One',
-        nit: 'nit Customer One',
+        name: 'Nativa Representaciones turisticas',
+        nit: '777777777',
         address: 'address Customer One',
         city: 'Medellin'
       },
       {
-        name: 'Customer Two',
-        nit: 'nit Customer Two',
+        name: 'Aviatur',
+        nit: '88888888',
         address: 'address Customer Two',
         city: 'Envigado'
       },
       {
-        name: 'Customer Three',
-        nit: 'nit Customer Three',
+        name: 'Viajes Falabella',
+        nit: '999999999',
         address: 'address Customer Three',
         city: 'Medellin'
       },
       {
-        name: 'Customer Four',
-        nit: 'nit Customer Four',
+        name: 'Viajes Veracruz',
+        nit: '1212121212',
         address: 'address Customer Four',
         city: 'Tambo'
       },
       {
-        name: 'Customer Five',
-        nit: 'nit Customer Five',
+        name: 'Viajes Villanueva',
+        nit: '1010101010',
         address: 'address Customer Five',
         city: 'Medellin'
       }

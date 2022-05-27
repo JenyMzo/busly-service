@@ -7,7 +7,19 @@ module.exports = {
       },
       {
         bus_id: 1,
+        ammenity_id: 2
+      },
+      {
+        bus_id: 1,
         ammenity_id: 3
+      },
+      {
+        bus_id: 1,
+        ammenity_id: 5
+      },
+      {
+        bus_id: 2,
+        ammenity_id: 1
       },
       {
         bus_id: 2,
@@ -15,11 +27,67 @@ module.exports = {
       },
       {
         bus_id: 2,
+        ammenity_id: 3
+      },
+      {
+        bus_id: 2,
+        ammenity_id: 4
+      },
+      {
+        bus_id: 2,
+        ammenity_id: 5
+      },
+      {
+        bus_id: 3,
         ammenity_id: 1
       },
       {
         bus_id: 3,
+        ammenity_id: 2
+      },
+      {
+        bus_id: 3,
         ammenity_id: 3
+      },
+      {
+        bus_id: 3,
+        ammenity_id: 5
+      },
+      {
+        bus_id: 4,
+        ammenity_id: 1
+      },
+      {
+        bus_id: 4,
+        ammenity_id: 2
+      },
+      {
+        bus_id: 4,
+        ammenity_id: 3
+      },
+      {
+        bus_id: 4,
+        ammenity_id: 4
+      },
+      {
+        bus_id: 4,
+        ammenity_id: 5
+      },
+      {
+        bus_id: 5,
+        ammenity_id: 1
+      },
+      {
+        bus_id: 5,
+        ammenity_id: 2
+      },
+      {
+        bus_id: 5,
+        ammenity_id: 3
+      },
+      {
+        bus_id: 5,
+        ammenity_id: 4
       }
     ], {});
   },

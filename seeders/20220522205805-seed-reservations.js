@@ -15,8 +15,8 @@ module.exports = {
         bus_id: 1,
         customer_id: 3,
         reservation_date: dayjs().add(8, 'day').format(),
-        travel_date_start:  dayjs().add(13, 'day').format(),
-        travel_date_end:  dayjs().add(18, 'day').format(),
+        travel_date_start:  dayjs().add(25, 'day').format(),
+        travel_date_end:  dayjs().add(28, 'day').format(),
         status: 'approved'
       },
       {
@@ -31,8 +31,8 @@ module.exports = {
         bus_id: 2,
         customer_id: 1,
         reservation_date: dayjs().add(6, 'day').format(),
-        travel_date_start:  dayjs().add(10, 'day').format(),
-        travel_date_end:  dayjs().add(20, 'day').format(),
+        travel_date_start:  dayjs().add(30, 'day').format(),
+        travel_date_end:  dayjs().add(35, 'day').format(),
         status: 'pending'
       },
       {

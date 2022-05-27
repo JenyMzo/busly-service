@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         has_tecnico_mecanica: {
-            type: DataTypes.STRING,
+            type: DataTypes.TINYINT,
             allowNull: false,
             default: false,
         },
