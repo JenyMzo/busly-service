@@ -38,7 +38,7 @@ module.exports = {
       },
       {
         name: 'TV',
-        description: '6 pantallas de 20 pulgadas',
+        description: 'TV',
         createdAt: new Date(),
         updatedAt: new Date(),
       }
