@@ -85,19 +85,4 @@ module.exports = function (server) {
       },
     },
   });
-
-  server.route({
-    method: "GET",
-    path: "/business/{businessId}/buses",
-    handler: Bus.getMyBuses,
-    options: {
-      validate: {
-        params: Joi.object({
-          businessId: Joi.number().integer().required(),
-        }),
-      },
-      tags: ["api"],
-      description: "Get all buses of a business",
-    },
-  });
 };

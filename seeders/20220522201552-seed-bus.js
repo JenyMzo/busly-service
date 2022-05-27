@@ -8,7 +8,8 @@ module.exports = {
         model: 'model 1',
         has_tecnico_mecanica: ' has_tecnico_mecanica 1',
         has_soat: true,
-        createdAt: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         business_id: 2,
@@ -17,7 +18,8 @@ module.exports = {
         model: 'model 2',
         has_tecnico_mecanica: ' has_tecnico_mecanica 2',
         has_soat: false,
-        createdAt: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         business_id: 3,
@@ -26,7 +28,8 @@ module.exports = {
         model: 'model 3',
         has_tecnico_mecanica: ' has_tecnico_mecanica 3',
         has_soat: true,
-        createdAt: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         business_id: 2,
@@ -35,7 +38,8 @@ module.exports = {
         model: 'model 4',
         has_tecnico_mecanica: ' has_tecnico_mecanica 4',
         has_soat: false,
-        createdAt: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         business_id: 1,
@@ -44,7 +48,8 @@ module.exports = {
         model: 'model 5',
         has_tecnico_mecanica: ' has_tecnico_mecanica 5',
         has_soat: true,
-        createdAt: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ], {});
   },
