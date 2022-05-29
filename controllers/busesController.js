@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const Bus = require('../models/Bus');
+const Reservation = require('../models/Reservation');
 const config = require('../config/config');
 const sequelize = new Sequelize(
   config.development.database,
@@ -8,6 +9,8 @@ const sequelize = new Sequelize(
     dialect: config.development.dialect,
   }
 );
+
+const dayjs = require('dayjs');
 
 module.exports.getBuses = async (request, h) => {
   try {
@@ -25,17 +28,19 @@ module.exports.getBuses = async (request, h) => {
 // consultar los buses que no tengan reserva aprobada o pendiente dentro del rango de fechas
 module.exports.getAvailableBuses = async (request, h) => {
   try {
-    console.log('request.query.start', request.query.start);
-    console.log('request.query.end', request.query.end);
-    const busModel = Bus(sequelize, DataTypes);
-    const bus = await busModel.findByPk(request.params.id,{
-      attributes: ['id', 'brand']
-    });
+    const {
+      start, end
+    } = request.query;
 
-    return h.response({bus}).code(200);
+    const startFormat = dayjs(start).format('YYYY-MM-DD');
+    const endFormat = dayjs(end).format('YYYY-MM-DD');
+
+    const buses = await request.app.db.query(`SELECT * FROM Buses WHERE id NOT IN ( SELECT B.id FROM Buses AS B LEFT JOIN Reservations AS R ON B.id = R.bus_id WHERE R.travel_date_start BETWEEN '${startFormat}' AND '${endFormat}' AND R.travel_date_end BETWEEN '${startFormat}' AND '${endFormat}' AND (R.status = 'approved' OR R.status = 'pending'))`);
+
+    return h.response({buses}).code(200);
   } catch (error) {
     return h.response({
-      error: err.message || "Some error occurred while retrieving buses."
+      error: error.message || "Some error occurred while retrieving buses."
     }).code(500);
   }
 };
