@@ -25,7 +25,6 @@ module.exports.getBuses = async (request, h) => {
   }
 };
 
-// consultar los buses que no tengan reserva aprobada o pendiente dentro del rango de fechas
 module.exports.getAvailableBuses = async (request, h) => {
   try {
     const {
