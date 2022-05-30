@@ -1,16 +1,8 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Ammenity extends Model {
-        static associate(models) {
-            Ammenity.hasMany(models.BusAmmenity, {
-                as: 'busAmmenities',
-                foreignKey: 'ammenity_id'
-            });
-        }
-    }
 
-    Ammenity.init({
+    const Ammenity = sequelize.define('Ammenity', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,

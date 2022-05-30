@@ -2,28 +2,7 @@ const { Model } = require('sequelize');
 const Business = require('./Business');
 
 module.exports = (sequelize, DataTypes) => {
-    class Bus extends Model {
-        static associate(models) {
-            Bus.belongsTo(models.Business, {
-                foreignKey: 'business_id',
-                as: 'businesses'
-            });
-            Bus.hasMany(models.Reservation, {
-                as: 'reservations',
-                foreignKey: 'bus_id'
-            });
-            Bus.hasMany(models.BusAmmenity, {
-                as: 'busAmmenities',
-                foreignKey: 'bus_id'
-            });
-            Bus.hasMany(models.Review, {
-                as: 'reviews',
-                foreignKey: 'bus_id'
-            });
-        }
-    }
-
-    Bus.init({
+    const Bus = sequelize.define('Bus', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -67,9 +46,21 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         }
     }, {
-        sequelize,
-        modelName: 'Bus'
+        timestamps: false,
+        tableName: 'Buses',
     });
+
+    Bus.associate = (models) => {
+        Bus.hasMany(models.Reservation, {
+            foreignKey: 'bus_id',
+        });
+        Bus.hasMany(models.BusAmmenity, {
+            foreignKey: 'bus_id'
+        });
+        Bus.hasMany(models.Review, {
+            foreignKey: 'bus_id'
+        });
+    };
 
     return Bus;
 };

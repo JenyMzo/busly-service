@@ -19,13 +19,19 @@ module.exports = function (server) {
   server.route({
     method: "GET",
     path: "/buses/{id}",
-    handler: Bus.getBuses,
+    handler: Bus.getBusById,
     options: {
       validate: {
         params: Joi.object({ id: Joi.number().integer().required() }),
       },
     },
   });
+
+  // server.route({
+  //   method: "GET",
+  //   path: "/buses",
+  //   handler: Bus.getBuses,
+  // });
 
   server.route({
     method: "GET",

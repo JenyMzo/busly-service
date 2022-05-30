@@ -3,20 +3,7 @@ const Bus = require('./Bus');
 const Ammenity = require('./Ammenity');
 
 module.exports = (sequelize, DataTypes) => {
-    class BusAmmenity extends Model {
-        static associate(models) {
-            BusAmmenity.belongsTo(models.Bus, {
-                as: 'buses',
-                foreignKey: 'bus_id'
-            });
-            BusAmmenity.belongsTo(models.Ammenity, {
-                as: 'ammenity',
-                foreignKey: 'ammenity_id'
-            });
-        }
-    }
-
-    BusAmmenity.init({
+    const BusAmmenity = sequelize.define('BusAmmenity', {
         bus_id: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -42,9 +29,18 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         }
     }, {
-        sequelize,
-        modelName: 'BusAmmenity'
+        timestamps: false,
+        tableName: 'Buses',
     });
+
+    BusAmmenity.associate = (models) => {
+        BusAmmenity.belongsTo(models.Bus, {
+            foreignKey: 'bus_id'
+        });
+        BusAmmenity.belongsTo(models.Ammenity, {
+            foreignKey: 'ammenity_id'
+        });
+    };
 
     return BusAmmenity;
 };

@@ -1,16 +1,8 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Customer extends Model {
-        static associate(models) {
-            Customer.hasMany(models.Reservation, {
-                as: 'reservations',
-                foreignKey: 'customer_id'
-            });
-        }
-    }
 
-    Customer.init({
+    const Customer = sequelize.define('Customer', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -40,10 +32,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: true
         }
-    }, {
-        sequelize,
-        modelName: 'Customer'
     });
+
+    Customer.associate = (models) => {
+        Customer.hasMany(models.Reservation, {
+            foreignKey: 'customer_id'
+        });
+    }
+
     return Customer;
 };
 

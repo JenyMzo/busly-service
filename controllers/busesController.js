@@ -12,7 +12,7 @@ const sequelize = new Sequelize(
 
 const dayjs = require('dayjs');
 
-module.exports.getBuses = async (request, h) => {
+module.exports.getBusById = async (request, h) => {
   try {
     const busModel = Bus(sequelize, DataTypes);
     const bus = await busModel.findByPk(request.params.id);
@@ -34,7 +34,11 @@ module.exports.getAvailableBuses = async (request, h) => {
     const startFormat = dayjs(start).format('YYYY-MM-DD');
     const endFormat = dayjs(end).format('YYYY-MM-DD');
 
-    const buses = await request.app.db.query(`SELECT * FROM Buses WHERE id NOT IN ( SELECT B.id FROM Buses AS B LEFT JOIN Reservations AS R ON B.id = R.bus_id WHERE R.travel_date_start BETWEEN '${startFormat}' AND '${endFormat}' AND R.travel_date_end BETWEEN '${startFormat}' AND '${endFormat}' AND (R.status = 'approved' OR R.status = 'pending'))`);
+    const buses = await request.app.db.query(`SELECT * FROM Buses WHERE
+      id NOT IN ( SELECT B.id FROM Buses AS B LEFT JOIN Reservations AS
+      R ON B.id = R.bus_id WHERE R.travel_date_start BETWEEN '${startFormat}'
+      AND '${endFormat}' AND R.travel_date_end BETWEEN '${startFormat}' AND
+      '${endFormat}' AND (R.status = 'approved' OR R.status = 'pending'))`);
 
     return h.response({buses}).code(200);
   } catch (error) {

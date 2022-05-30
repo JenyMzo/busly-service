@@ -6,18 +6,12 @@ const Customer = require('./Customer');
 module.exports = (sequelize, DataTypes) => {
     class Review extends Model {
         static associate(models) {
-            Review.belongsTo(models.Bus, {
-                as: 'buses',
-                foreignKey: 'bus_id'
-            });
-            Review.belongsTo(models.Customer, {
-                as: 'customers',
-                foreignKey: 'customer_id'
-            });
+            Review.belongsTo(models.Bus);
+            Review.belongsTo(models.Customer);
         }
     }
 
-    Review.init({
+    const Review = sequelize.define({
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -62,6 +56,11 @@ module.exports = (sequelize, DataTypes) => {
         sequelize,
         modelName: 'Review'
     });
+
+    Review.associate = (models) => {
+        Review.belongsTo(models.Bus);
+        Review.belongsTo(models.Customer);
+    }
 
     return Review;
 };

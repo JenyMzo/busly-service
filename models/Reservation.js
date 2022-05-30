@@ -3,21 +3,7 @@ const Bus = require('./Bus');
 const Customer = require('./Customer');
 
 module.exports = (sequelize, DataTypes) => {
-
-    class Reservation extends Model {
-        static associate(models) {
-            Reservation.belongsTo(models.Bus, {
-                foreignKey: 'bus_id',
-                as: 'buses'
-            });
-            Reservation.belongsTo(models.Customer, {
-                foreignKey: 'customer_id',
-                as: 'customers'
-            });
-        }
-    }
-
-    Reservation.init({
+    const Reservation = sequelize.define('Reservation', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -63,9 +49,20 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         }
     }, {
-        sequelize,
-        modelName: 'Reservation'
+        timestamps: false,
+        tableName: 'Reservations',
     });
+
+    Reservation.associate = (models) => {
+        Reservation.belongsTo(models.Bus, {
+            foreignKey: 'bus_id',
+            as: 'buses'
+        });
+        Reservation.belongsTo(models.Customer, {
+            foreignKey: 'customer_id',
+            as: 'customers'
+        });
+    };
 
     return Reservation;
 };

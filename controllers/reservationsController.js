@@ -10,6 +10,7 @@ const sequelize = new Sequelize(
   }
 );
 
+// WORK IN PROGRESS 🛠
 module.exports.getMyReservations = async(request, h) => {
     try {
         // SELECT * FROM busly.reservations r
