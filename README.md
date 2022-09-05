@@ -9,6 +9,9 @@ back end api with endpoints for busly app
 
     Note: whenever you change the database schema, you need to update the migration and seeders files.
 
+## Add new seeders
+    $ sequelize seed:generate --name seed-table
+
 ## Reset database
 
     $ yarn db:reset

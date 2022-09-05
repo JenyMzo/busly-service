@@ -1,4 +1,3 @@
-const { Model } = require('sequelize');
 const Bus = require('./Bus');
 const Ammenity = require('./Ammenity');
 

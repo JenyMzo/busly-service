@@ -1,5 +1,3 @@
-const { Model } = require('sequelize');
-
 module.exports = (sequelize, DataTypes) => {
     const Business = sequelize.define('Business', {
         id: {

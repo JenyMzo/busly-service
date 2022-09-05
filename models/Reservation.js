@@ -1,4 +1,3 @@
-const { Model } = require('sequelize');
 const Bus = require('./Bus');
 const Customer = require('./Customer');
 
@@ -37,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         status: {
             type: DataTypes.ENUM,
-            values: ['pending', 'approved', 'canceled'],
+            values: ['pending', 'approved', 'canceled', 'completed', 'rejected'],
             allowNull: false
         },
         createdAt: {
@@ -56,11 +55,9 @@ module.exports = (sequelize, DataTypes) => {
     Reservation.associate = (models) => {
         Reservation.belongsTo(models.Bus, {
             foreignKey: 'bus_id',
-            as: 'buses'
         });
         Reservation.belongsTo(models.Customer, {
             foreignKey: 'customer_id',
-            as: 'customers'
         });
     };
 

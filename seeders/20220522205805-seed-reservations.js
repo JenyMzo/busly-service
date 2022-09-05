@@ -17,7 +17,7 @@ module.exports = {
         reservation_date: dayjs().add(8, 'day').format(),
         travel_date_start:  dayjs().add(25, 'day').format(),
         travel_date_end:  dayjs().add(28, 'day').format(),
-        status: 'approved'
+        status: 'completed'
       },
       {
         bus_id: 2,
@@ -25,7 +25,7 @@ module.exports = {
         reservation_date: dayjs().add(9, 'day').format(),
         travel_date_start:  dayjs().add(15, 'day').format(),
         travel_date_end:  dayjs().add(27, 'day').format(),
-        status: 'canceled'
+        status: 'rejected'
       },
       {
         bus_id: 2,

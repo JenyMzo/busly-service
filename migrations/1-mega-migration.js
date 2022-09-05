@@ -219,6 +219,46 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
+            "Packages",
+            {
+                id: {
+                    type: DataTypes.INTEGER,
+                    primaryKey: true,
+                    autoIncrement: true
+                },
+                bus_id: {
+                    type: DataTypes.INTEGER,
+                    references: {
+                        model: 'Buses',
+                        key: 'id'
+                    }
+                },
+                name: {
+                    type: DataTypes.STRING,
+                    allowNull: true
+                },
+                price: {
+                    type: DataTypes.FLOAT,
+                    allowNull: false
+                },
+                description: {
+                    type: DataTypes.STRING,
+                    allowNull: true
+                },
+                createdAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                },
+                updatedAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                }
+            }
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
             "Reservations",
             {
                 id: {
@@ -254,7 +294,7 @@ var migrationCommands = [{
                 },
                 status: {
                     type: DataTypes.ENUM,
-                    values: ['pending', 'approved', 'canceled'],
+                    values: ['pending', 'approved', 'canceled', 'completed', 'rejected'],
                     allowNull: false
                 },
                 createdAt: {
