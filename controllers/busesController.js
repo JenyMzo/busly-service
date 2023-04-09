@@ -69,3 +69,19 @@ module.exports.getMyBuses = async(request, h) => {
         }).code(500);
     };
 };
+
+module.exports.createBus = async(request, h) => {
+  try {
+      const busModel = Bus(sequelize, DataTypes);
+      const newBus = request.body.data;
+      const bus = await busModel.create(newBus);
+      return h.response({
+          bus: bus
+      }).code(200);
+
+  } catch(err) {
+      return h.response({
+          error: err.message || "Some error occurred while creating the bus."
+      }).code(500);
+  };
+};

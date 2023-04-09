@@ -22,7 +22,8 @@ var info = {
     "comment": ""
 };
 
-var migrationCommands = [{
+var migrationCommands = [
+    {
         fn: "createTable",
         params: [
             "Ammenities",
@@ -221,13 +222,6 @@ var migrationCommands = [{
                     primaryKey: true,
                     autoIncrement: true
                 },
-                bus_id: {
-                    type: DataTypes.INTEGER,
-                    references: {
-                        model: 'Buses',
-                        key: 'id'
-                    }
-                },
                 name: {
                     type: DataTypes.STRING,
                     allowNull: true
@@ -254,6 +248,34 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
+            "Permissions",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER
+                },
+                perm_name: {
+                    type: Sequelize.STRING
+                },
+                perm_description: {
+                    type: Sequelize.STRING
+                },
+                createdAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE
+                },
+                updatedAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE
+                }
+            }
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
             "Reservations",
             {
                 id: {
@@ -268,10 +290,24 @@ var migrationCommands = [{
                         key: 'id'
                     }
                 },
+                package_id: {
+                    type: DataTypes.INTEGER,
+                    references: {
+                        model: 'Packages',
+                        key: 'id'
+                    }
+                },
                 customer_id: {
                     type: DataTypes.INTEGER,
                     references: {
                         model: 'Customers',
+                        key: 'id'
+                    }
+                },
+                business_id: {
+                    type: DataTypes.INTEGER,
+                    references: {
+                        model: 'Businesses',
                         key: 'id'
                     }
                 },
@@ -289,8 +325,8 @@ var migrationCommands = [{
                 },
                 status: {
                     type: DataTypes.ENUM,
-                    values: ['pending', 'approved', 'canceled', 'completed', 'rejected'],
-                    allowNull: false
+                    values: ['confirmada', 'cancelada', 'completada'],
+                    allowNull: true
                 },
                 createdAt: {
                     type: DataTypes.DATE,
@@ -354,6 +390,70 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
+            "Roles",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER
+                },
+                role_name: {
+                    type: Sequelize.STRING
+                },
+                role_description: {
+                    type: Sequelize.STRING
+                },
+                createdAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE
+                },
+                updatedAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE
+                }
+            }
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "RolePermissions",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER
+                },
+                role_id: {
+                    type: Sequelize.INTEGER,
+                    references: {
+                        model: 'Roles',
+                        key: 'id'
+                    }
+                },
+                perm_id: {
+                    type: Sequelize.INTEGER,
+                    references: {
+                        model: 'Permissions',
+                        key: 'id'
+                    }
+                },
+                createdAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE
+                },
+                updatedAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE
+                }
+            }
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
             "Users",
             {
                 id: {
@@ -384,7 +484,39 @@ var migrationCommands = [{
                 }
             }
         ]
-    }
+    },
+    {
+        fn: "createTable",
+        params: [
+            "BusPackages",
+            {
+                bus_id: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false,
+                    references: {
+                        model: 'Buses',
+                        key: 'id'
+                    }
+                },
+                package_id: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false,
+                    references: {
+                        model: 'Packages',
+                        key: 'id'
+                    }
+                },
+                createdAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                },
+                updatedAt: {
+                    type: DataTypes.DATE,
+                    allowNull: true
+                }
+            }
+        ]
+    },
 ];
 
 module.exports = {

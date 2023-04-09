@@ -1,5 +1,5 @@
-const Bus = require('./Bus');
 const Customer = require('./Customer');
+const Package = require('./Package');
 
 module.exports = (sequelize, DataTypes) => {
     const Reservation = sequelize.define('Reservation', {
@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        bus_id: {
+        package_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: Bus,
+                model: Package,
                 key: 'id'
             }
         },
@@ -19,6 +19,20 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             references: {
                 model: Customer,
+                key: 'id'
+            }
+        },
+        business_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: Business,
+                key: 'id'
+            }
+        },
+        bus_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: Bus,
                 key: 'id'
             }
         },
@@ -36,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         status: {
             type: DataTypes.ENUM,
-            values: ['pending', 'approved', 'canceled', 'completed', 'rejected'],
+            values: ['confirmado', 'cancelado', 'completado'],
             allowNull: false
         },
         createdAt: {
@@ -53,11 +67,17 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Reservation.associate = (models) => {
-        Reservation.belongsTo(models.Bus, {
-            foreignKey: 'bus_id',
+        Reservation.belongsTo(models.Package, {
+            foreignKey: 'package_id',
         });
         Reservation.belongsTo(models.Customer, {
             foreignKey: 'customer_id',
+        });
+        Reservation.belongsTo(models.Business, {
+            foreignKey: 'business_id',
+        });
+        Reservation.belongsTo(models.Bus, {
+            foreignKey: 'bus_id',
         });
     };
 

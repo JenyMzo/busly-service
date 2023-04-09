@@ -56,6 +56,9 @@ module.exports = (sequelize, DataTypes) => {
         Bus.hasMany(models.BusAmmenity, {
             foreignKey: 'bus_id'
         });
+        Bus.hasMany(models.BusPackage, {
+            foreignKey: 'bus_id'
+        });
         Bus.hasMany(models.Review, {
             foreignKey: 'bus_id'
         });

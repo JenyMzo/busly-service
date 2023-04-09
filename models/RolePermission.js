@@ -1,3 +1,6 @@
+const Role = require('./Role');
+const Permission = require('./Permission');
+
 const {
   Model
 } = require('sequelize');
@@ -9,7 +12,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      RolePermission.belongsTo(models.Role, {
+          foreignKey: 'bus_id'
+      });
+      RolePermission.belongsTo(models.Permission, {
+          foreignKey: 'ammenity_id'
+      });
     }
   }
   RolePermission.init({
