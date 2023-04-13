@@ -20,7 +20,6 @@ module.exports.getMyReservationsBusiness = async (request, h) => {
         JOIN Packages p on p.id = r.package_id
         JOIN Buses b on b.id = r.bus_id WHERE r.business_id = '${businessId}'`);
 
-        console.log('looog', reservations);
         return h.response(reservations).code(200);
 
     } catch (err) {
@@ -49,10 +48,8 @@ module.exports.getMyReservationsCustomer = async (request, h) => {
 };
 
 module.exports.getReservationById = async (request, h) => {
-    console.log('reservationModeldsfds')
     try {
       const reservationModel = Reservation(sequelize, DataTypes);
-      console.log('reservationModel', reservationModel)
       const reservation = await reservationModel.findByPk(request.params.id);
 
       return h.response({reservation}).code(200);
@@ -85,13 +82,13 @@ module.exports.getMyReservationsByBus = async (request, h) => {
 module.exports.createReservation = async (request, h) => {
     try {
         const reservationModel = Reservation(sequelize, DataTypes);
-        const newReservation = request.body.data;
+        const newReservation = request.payload;
         const reservation = await reservationModel.create(newReservation);
         return h.response(reservation).code(200);
 
     } catch (err) {
         return h.response({
-            error: err.message || "Some error occurred while creating the bus."
+            error: err.message || "Some error occurred while creating the reservation."
         }).code(500);
     };
 };

@@ -35,7 +35,7 @@ module.exports.getAvailableBuses = async (request, h) => {
     const endFormat = dayjs(end).format('YYYY-MM-DD');
 
     const buses = await request.app.db.query(`
-    SELECT bu.id, bu.brand, bu.model, pa.id AS packageId, pa.name, pa.description, pa.price
+    SELECT bu.id, bu.brand, bu.model, bu.business_id, pa.id AS packageId, pa.name, pa.description, pa.price
     FROM Buses bu
     JOIN BusPackages bp on bp.bus_id = bu.id
     JOIN Packages pa on pa.id = bp.package_id WHERE
@@ -77,13 +77,13 @@ module.exports.getMyBuses = async(request, h) => {
     try {
         const busModel = Bus(sequelize, DataTypes);
         const businessId = request.params.businessId;
-        console.log('businessId', businessId);
+
         const buses = await busModel.findAll({
             where: {
                 business_id: businessId
             }
         });
-        console.log('looog', buses);
+
         return h.response({
             buses: buses
         }).code(200);
@@ -98,7 +98,7 @@ module.exports.getMyBuses = async(request, h) => {
 module.exports.createBus = async(request, h) => {
   try {
       const busModel = Bus(sequelize, DataTypes);
-      const newBus = request.body.data;
+      const newBus = request.payload;
       const bus = await busModel.create(newBus);
       return h.response({
           bus: bus

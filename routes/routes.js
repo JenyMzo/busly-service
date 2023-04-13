@@ -4,7 +4,7 @@ module.exports = function (server) {
   const Review = require("../controllers/reviewsController");
   const Ammenity = require("../controllers/ammenitiesController");
   const Package = require("../controllers/packagesController");
-  const JoiBase = require("@hapi/joi");
+  const JoiBase = require("joi");
   const JoiDate = require("@hapi/joi-date");
   const Joi = JoiBase.extend(JoiDate);
 
@@ -38,12 +38,6 @@ module.exports = function (server) {
       },
     },
   });
-
-  // server.route({
-  //   method: "GET",
-  //   path: "/buses",
-  //   handler: Bus.getBuses,
-  // });
 
   server.route({
     method: "GET",
@@ -138,20 +132,20 @@ module.exports = function (server) {
     method: "POST",
     path: "/reservation",
     handler: Reservation.createReservation,
-    // options: {
-    //   validate: {
-    //     payload: {
-    //       bus_id: Joi.number(),
-    //       package_id: Joi.number(),
-    //       customer_id: Joi.number(),
-    //       business_id: Joi.number(),
-    //       reservation_date: Joi.date().required,
-    //       travel_date_start: Joi.date().required,
-    //       travel_date_end: Joi.date().required,
-    //       status: Joi.string().valid('confirmada', 'pendiente'),
-    //     }
-    //   }
-    // }
+    options: {
+      validate: {
+        payload: Joi.object({
+          bus_id: Joi.number(),
+          package_id: Joi.number(),
+          customer_id: Joi.number(),
+          business_id: Joi.number(),
+          reservation_date: Joi.date().required(),
+          travel_date_start: Joi.date().required(),
+          travel_date_end: Joi.date().required(),
+          status: Joi.string().valid('confirmada', 'pendiente'),
+        })
+      }
+    }
   })
 
   //packages
@@ -172,8 +166,8 @@ module.exports = function (server) {
 
   server.route({
     method: "GET",
-    path: "/packages/distinct",
-    handler: Package.getDistinctPackages,
+    path: "/packages",
+    handler: Package.getPackages,
     options: {
       tags: ["api"],
       description: "Get different packages",

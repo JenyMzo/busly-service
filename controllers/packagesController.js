@@ -22,9 +22,10 @@ module.exports.getPackageById = async (request, h) => {
     };
 };
 
-module.exports.getDistinctPackages = async (request, h) => {
+module.exports.getPackages = async (request, h) => {
     try {
-        const packages = await request.app.db.query('SELECT distinct(name), description FROM busly.Packages');
+        const packagesModel = Package(sequelize, DataTypes);
+        const packages = await packagesModel.findAll();
 
         return h.response(packages).code(200);
 
