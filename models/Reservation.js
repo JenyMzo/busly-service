@@ -1,5 +1,7 @@
 const Customer = require('./Customer');
 const Package = require('./Package');
+const Business = require('./Business');
+const Bus = require('./Bus');
 
 module.exports = (sequelize, DataTypes) => {
     const Reservation = sequelize.define('Reservation', {
@@ -64,10 +66,26 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         timestamps: false,
         tableName: 'Reservations',
+        classMethods: {
+            associate: function (models) {
+                Reservation.belongsTo(models.Package, {
+                    through: 'package_id',
+                });
+                Reservation.belongsTo(models.Customer, {
+                    through: 'customer_id',
+                });
+                Reservation.belongsTo(models.Business, {
+                    through: 'business_id',
+                });
+                Reservation.belongsTo(models.Bus, {
+                    through: 'bus_id',
+                });
+            }
+        }
     });
 
     Reservation.associate = (models) => {
-        Reservation.belongsTo(models.Package, {
+        Reservation.belongsToMany(models.Package, {
             foreignKey: 'package_id',
         });
         Reservation.belongsTo(models.Customer, {

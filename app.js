@@ -1,5 +1,6 @@
 const Hapi = require('@hapi/hapi');
-const port = process.env.PORT || 3000;
+const HapiCors = require('hapi-cors');
+const port = process.env.PORT || 3001;
 const Routes = require('./routes/routes.js');
 const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
@@ -29,6 +30,12 @@ exports.init = async () => {
         {
             plugin: HapiSwagger,
             options: swaggerOptions
+        },
+        {
+            plugin: HapiCors,
+            options: {
+              origins: ['*']
+            }
         },
         {
             plugin: HapiMysql,

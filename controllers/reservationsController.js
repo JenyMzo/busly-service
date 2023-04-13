@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const Reservation = require('../models/Reservation');
 const Bus = require('../models/Bus');
+const Package = require('../models/Package');
 const config = require('../config/config');
 const sequelize = new Sequelize(
     config.development.database,
@@ -11,27 +12,14 @@ const sequelize = new Sequelize(
 );
 
 // WORK IN PROGRESS 🛠
-module.exports.getMyReservations = async (request, h) => {
+module.exports.getMyReservationsBusiness = async (request, h) => {
     try {
-        // SELECT * FROM busly.reservations r
-        // JOIN busly.buses b
-        // ON b.id = r.bus_id
-        // WHERE b.business_id = 1;
-        const reservationModel = Reservation(sequelize, DataTypes);
-        const busModel = Bus(sequelize, DataTypes);
         const businessId = request.params.businessId;
-        console.log('businessId', businessId);
-        console.log('col', Sequelize.col('reservations.bus_id'));
-        const reservations = await reservationModel.findAll({
-            include: [{
-                model: busModel,
-                attributes: ['id', 'business_id', 'brand', 'license_plate'],
-                on: { id: reservationModel.bus_id },
-                where: {
-                    business_id: businessId
-                }
-            }],
-        });
+
+        const reservations = await request.app.db.query(`SELECT r.id, r.status, r.reservation_date,r.travel_date_end, r.travel_date_start, p.price, b.brand  FROM Reservations r
+        JOIN Packages p on p.id = r.package_id
+        JOIN Buses b on b.id = r.bus_id WHERE r.business_id = '${businessId}'`);
+
         console.log('looog', reservations);
         return h.response(reservations).code(200);
 
@@ -41,6 +29,40 @@ module.exports.getMyReservations = async (request, h) => {
         }).code(500);
     };
 };
+
+module.exports.getMyReservationsCustomer = async (request, h) => {
+    try {
+        const customerId = request.params.customerId;
+
+        const reservations = await request.app.db.query(`SELECT r.id, r.status, r.reservation_date, r.travel_date_end, r.travel_date_start, p.price, b.brand  FROM Reservations r
+        JOIN Packages p on p.id = r.package_id
+        JOIN Buses b on b.id = r.bus_id WHERE r.customer_id = '${customerId}'`);
+
+        console.log('looog', reservations);
+        return h.response(reservations).code(200);
+
+    } catch (err) {
+        return h.response({
+            error: err.message || "Some error occurred while retrieving reservations."
+        }).code(500);
+    };
+};
+
+module.exports.getReservationById = async (request, h) => {
+    console.log('reservationModeldsfds')
+    try {
+      const reservationModel = Reservation(sequelize, DataTypes);
+      console.log('reservationModel', reservationModel)
+      const reservation = await reservationModel.findByPk(request.params.id);
+
+      return h.response({reservation}).code(200);
+    } catch (error) {
+        console.log('error', error)
+      return h.response({
+        error: error.message || "Some error occurred while retrieving buses."
+      }).code(500);
+    }
+  };
 
 module.exports.getMyReservationsByBus = async (request, h) => {
     try {
