@@ -28,7 +28,7 @@ module.exports.getBusById = async (request, h) => {
 module.exports.getAvailableBuses = async (request, h) => {
   try {
     const {
-      start, end
+      start, end, package_id
     } = request.query;
 
     const startFormat = dayjs(start).format('YYYY-MM-DD');
@@ -43,7 +43,7 @@ module.exports.getAvailableBuses = async (request, h) => {
       R ON B.id = R.bus_id WHERE (R.travel_date_start BETWEEN '${startFormat}'
       AND '${endFormat}') OR (R.travel_date_end BETWEEN '${startFormat}' AND
       '${endFormat}') AND (R.status = 'approved' OR R.status = 'pending'))
-      AND has_soat = 1 AND has_tecnico_mecanica = 1 AND pa.id = 1`);
+      AND has_soat = 1 AND has_tecnico_mecanica = 1 AND pa.id = '${package_id}'`);
 
     return h.response({buses}).code(200);
   } catch (error) {

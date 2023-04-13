@@ -1,7 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const Reservation = require('../models/Reservation');
-const Bus = require('../models/Bus');
-const Package = require('../models/Package');
 const config = require('../config/config');
 const sequelize = new Sequelize(
     config.development.database,
@@ -56,7 +54,7 @@ module.exports.getReservationById = async (request, h) => {
     } catch (error) {
         console.log('error', error)
       return h.response({
-        error: error.message || "Some error occurred while retrieving buses."
+        error: error.message || "Some error occurred while retrieving a reservation."
       }).code(500);
     }
   };
@@ -93,15 +91,26 @@ module.exports.createReservation = async (request, h) => {
     };
 };
 
-module.exports.getRecurrentCustomers = async (request, h) => {
+module.exports.getCancelledReservations = async (request, h) => {
     try {
-        const businessId = request.params.businessId;
-        sequelize.query('CALL recurrentCustomers(:businessid);',
-            { replacements: { businessid: businessId } })
-            .then(h.response(reservation).code(200));
+        const customerId = request.params.customerId;
+        const reservations = await request.app.db.query(`SELECT COUNT(id) as cancelledReservations FROM reservations where status = 'cancelada' AND customer_id = '${customerId}'`);
+        return h.response(reservations).code(200);
     } catch (error) {
         return h.response({
-            error: err.message || "Some error occurred while calling recurrentCustomers()."
+            error: err.message || "Some error occurred while calling cancelled reservations."
+        }).code(500);
+    }
+}
+
+module.exports.getSuccessfulReservations = async (request, h) => {
+    try {
+        const customerId = request.params.customerId;
+        const reservations = await request.app.db.query(`SELECT COUNT(id) as successfulReservations FROM reservations where status IN ('confirmada', 'completada') AND customer_id = '${customerId}'`);
+        return h.response(reservations).code(200);
+    } catch (error) {
+        return h.response({
+            error: err.message || "Some error occurred while calling successfulReservations."
         }).code(500);
     }
 }

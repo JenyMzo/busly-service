@@ -1,9 +1,11 @@
 module.exports = function (server) {
+  const Ammenity = require("../controllers/ammenitiesController");
   const Bus = require("../controllers/busesController");
+  const Costumer = require("../controllers/costumerController");
+  const Package = require("../controllers/packagesController");
+  const Provider = require("../controllers/providersController");
   const Reservation = require("../controllers/reservationsController");
   const Review = require("../controllers/reviewsController");
-  const Ammenity = require("../controllers/ammenitiesController");
-  const Package = require("../controllers/packagesController");
   const JoiBase = require("joi");
   const JoiDate = require("@hapi/joi-date");
   const Joi = JoiBase.extend(JoiDate);
@@ -123,8 +125,39 @@ module.exports = function (server) {
         query: Joi.object({
           start: Joi.date().format(["DD/MM/YYYY", "YYYY-MM-DD"]).required(),
           end: Joi.date().format(["DD/MM/YYYY", "YYYY-MM-DD"]).required(),
+          package_id: Joi.number().required()
         }),
       },
+    },
+  });
+
+  server.route({
+    method: "GET",
+    path: "/reservation/{businessId}&status=cancelled",
+    handler: Reservation.getCancelledReservations,
+    options: {
+      validate: {
+        params: Joi.object({
+          businessId: Joi.number().integer().required(),
+        }),
+      },
+      tags: ["api"],
+      description: "Get all cancelled reservations of a business",
+    },
+  });
+
+  server.route({
+    method: "GET",
+    path: "/reservation/{businessId}&status=successful",
+    handler: Reservation.getSuccessfulReservations,
+    options: {
+      validate: {
+        params: Joi.object({
+          businessId: Joi.number().integer().required(),
+        }),
+      },
+      tags: ["api"],
+      description: "Get all sucessful reservations of a business",
     },
   });
 
@@ -206,5 +239,30 @@ module.exports = function (server) {
     },
   });
 
+  //costumers
+  server.route({
+    method: "GET",
+    path: "/costumers/recurrency&businessId={businessId}",
+    handler: Costumer.getRecurrentCostumersbyBusinessId,
+    options: {
+      validate: {
+        params: Joi.object({
+          businessId: Joi.number().integer().required(),
+        }),
+      },
+      tags: ["api"],
+      description: "Get recurrent customers by businessId",
+    },
+  });
 
+  //providers
+  server.route({
+    method: "GET",
+    path: "/providers/new",
+    handler: Provider.getNewProviders,
+    options: {
+      tags: ["api"],
+      description: "Get new providers",
+    },
+  });
 };
